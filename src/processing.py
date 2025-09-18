@@ -14,7 +14,9 @@ def filter_by_state(transactions: list[dict], state: str = "EXECUTED") -> list[d
     """Функция возвращает новый список словарей, содержащий только те словари,"""
     """у которых ключ state соответствует указанному значению."""
 
-    return [transaction for transaction in transactions if transaction["state"] == state]
+    return [
+        transaction for transaction in transactions if transaction["state"] == state
+    ]
 
 
 print(filter_by_state(datas))
@@ -26,7 +28,9 @@ def sort_by_date(transactions, reverse=True):
     """задающий порядок сортировки (по умолчанию — убывание)"""
     """Функция должна возвращать новый список, отсортированный по дате (date)."""
 
-    return sorted(transactions, key=lambda x: datetime.fromisoformat(x["date"]), reverse=reverse)
+    return sorted(
+        transactions, key=lambda x: datetime.fromisoformat(x["date"]), reverse=reverse
+    )
 
 
 print(datas)

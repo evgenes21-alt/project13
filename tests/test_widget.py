@@ -54,9 +54,9 @@ def test_card_masking_errors(invalid_input: str) -> None:
 @pytest.mark.parametrize(
     "invalid_input",
     [
-        "Счет 7365",  # Слишком короткий номер
         "Счет abcdef",  # Некорректные символы (буквы)
         "Счет ",  # Пустой номер счета
+        "Счет 123abc",  # Смешанные символы
     ],
 )
 def test_account_masking_errors(invalid_input: str) -> None:

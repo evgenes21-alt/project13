@@ -1,7 +1,8 @@
 import pytest
 
 
-from src.masks import get_mask_card_number,get_mask_account
+from src.masks import get_mask_card_number, get_mask_account
+
 
 # Позитивные тесты - проверка корректного маскирования
 @pytest.mark.parametrize(
@@ -33,3 +34,5 @@ def test_card_masking_errors(invalid_input: str, expected_error: str) -> None:
     with pytest.raises(ValueError) as exc_info:
         get_mask_card_number(invalid_input)
     assert str(exc_info.value) == expected_error
+
+

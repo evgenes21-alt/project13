@@ -12,10 +12,16 @@ def get_mask_card_number(card_number: str) -> str:
         error_msg = "Номер карты должен состоять из 16 цифр"
         raise ValueError(error_msg)
 
-
-
     card_number = card_number[:6] + "*" * 6 + card_number[-4:]
-    card_number = card_number[:4] + " " + card_number[4:8] + " " + card_number[8:12] + " " + card_number[12:]
+    card_number = (
+        card_number[:4]
+        + " "
+        + card_number[4:8]
+        + " "
+        + card_number[8:12]
+        + " "
+        + card_number[12:]
+    )
     return card_number
 
 

@@ -2,7 +2,6 @@ from src.masks import get_mask_account, get_mask_card_number
 from dateutil.parser import parse
 
 
-
 def mask_account_card(pay_info: str) -> str:
     """Обрабатывает информацию о картах и счетах и возвращает строку с замаскированным номером"""
     if not isinstance(pay_info, str) or not pay_info.strip():
@@ -29,7 +28,6 @@ def get_date(date_string: str) -> str:
     date = parse(date_string)
     formatted_date = date.strftime("%d.%m.%Y")
     return formatted_date
-
 
 
 print(get_date("2024-03-11T02:26:18.671407"))
