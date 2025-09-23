@@ -34,5 +34,3 @@ def test_card_masking_errors(invalid_input: str, expected_error: str) -> None:
     with pytest.raises(ValueError) as exc_info:
         get_mask_card_number(invalid_input)
     assert str(exc_info.value) == expected_error
-
-

@@ -29,7 +29,7 @@ def get_mask_card_number(card_number: str) -> str:
 #               **4305  # выход функции
 
 
-def get_mask_account(account: int) -> str:
+def get_mask_account(account: str) -> str:
     """Функция которая маскирует номер счёта"""
     card_account = str(account)
     card_account = "**" + card_account[-4:]
