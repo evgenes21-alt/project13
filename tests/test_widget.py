@@ -8,10 +8,10 @@ from src.widget import mask_account_card
 @pytest.mark.parametrize(
     "input_data, expected",
     [
-        ("Visa Platinum 7000792289606361", "7000 79** **** 6361"),
-        ("Maestro 1234567812345678", "1234 56** **** 5678"),
-        ("МИР 0000000000000000", "0000 00** **** 0000"),
-        ("MasterCard 9999888877776666", "9999 88** **** 6666"),
+        ("Visa Platinum 7000792289606361", "Visa Platinum 7000 79** **** 6361"),
+        ("Maestro 1234567812345678", "Maestro 1234 56** **** 5678"),
+        ("МИР 0000000000000000", "МИР 0000 00** **** 0000"),
+        ("MasterCard 9999888877776666", "MasterCard 9999 88** **** 6666"),
     ],
 )
 def test_card_masking_positive(input_data: str, expected: str) -> None:
@@ -23,9 +23,9 @@ def test_card_masking_positive(input_data: str, expected: str) -> None:
 @pytest.mark.parametrize(
     "input_data, expected",
     [
-        ("Счет 73654108430135874305", "**4305"),
-        ("Счет 12345678901234567890", "**7890"),
-        ("Счет 00000000000000000001", "**0001"),
+        ("Счет 73654108430135874305", "Счет **4305"),
+        ("Счет 12345678901234567890", "Счет **7890"),
+        ("Счет 00000000000000000001", "Счет **0001"),
     ],
 )
 def test_account_masking_positive(input_data: str, expected: str) -> None:
@@ -55,8 +55,10 @@ def test_card_masking_errors(invalid_input: str) -> None:
     "invalid_input",
     [
         "Счет abcdef",  # Некорректные символы (буквы)
-        "Счет ",  # Пустой номер счета
         "Счет 123abc",  # Смешанные символы
+        "Счет",  # Отсутствует номер счета
+        "Счет 123-456",  # Номер с дефисом
+        "Счет 123 456",  # Номер с пробелом
     ],
 )
 def test_account_masking_errors(invalid_input: str) -> None:

@@ -4,26 +4,6 @@ from dateutil.parser import parse
 
 
 
-# Пример функции для определения типа карты
-
-def get_card_type(card_number: str) -> str:
-    if card_number.startswith("4"):
-        return "Visa"
-    elif card_number.startswith("5"):
-        return "MasterCard"
-    elif card_number.startswith("6"):
-        return "Discover"
-    elif card_number.startswith("3") and (card_number[1] in "47"):
-        return "American Express"
-    elif card_number.startswith("3"):
-        return "JCB"
-    elif card_number.startswith("2"):
-        return "Maestro"
-    else:
-        return "Unknown"
-
-
-
 def mask_account_card(pay_info: str) -> str:
     """Обрабатывает информацию о картах и счетах и возвращает строку с замаскированным номером"""
     if not isinstance(pay_info, str) or not pay_info.strip():
@@ -33,19 +13,29 @@ def mask_account_card(pay_info: str) -> str:
     if len(parts) < 2:
         raise ValueError("Строка не содержит нужной информации для обработки")
 
-    account = "Счет"
+    # Последний элемент должен быть номером (только цифры)
     number = parts[-1]
+    if not number.isdigit():
+        raise ValueError("Номер должен содержать только цифры")
+
+    # Все элементы кроме последнего - это название банка/типа
+    bank_name = " ".join(parts[:-1])
 
     try:
-        if parts[0] == account:
-            return get_mask_account(number)
+        if bank_name == "Счет":
+            return f"{bank_name} {get_mask_account(number)}"
         else:
-            # добавляем определение типа карты
-            card_type = get_card_type(number)
-            return f"{card_type} {get_mask_card_number(number)}"
+            return f"{bank_name} {get_mask_card_number(number)}"
     except ValueError as e:
         # Перехватываем ошибки из внутренних функций
         raise ValueError(f"Ошибка обработки номера: {str(e)}")
+
+
+def get_date(date_string: str) -> str:
+    """Смена даты с формата ISO на 'ДД.ММ.ГГГГ'"""
+    date = parse(date_string)
+    formatted_date = date.strftime("%d.%m.%Y")
+    return formatted_date
 
 
 def get_date(date_string: str) -> str:
