@@ -2,8 +2,6 @@ from src.masks import get_mask_account, get_mask_card_number
 from dateutil.parser import parse
 
 
-
-
 def mask_account_card(pay_info: str) -> str:
     """Обрабатывает информацию о картах и счетах и возвращает строку с замаскированным номером"""
     if not isinstance(pay_info, str) or not pay_info.strip():
