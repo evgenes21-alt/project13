@@ -1,6 +1,5 @@
 from datetime import datetime
 
-
 datas = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
     {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -14,7 +13,9 @@ def filter_by_state(transactions: list[dict], state: str = "EXECUTED") -> list[d
     """Функция возвращает новый список словарей, содержащий только те словари,"""
     """у которых ключ state соответствует указанному значению."""
 
-    return [transaction for transaction in transactions if transaction["state"] == state]
+    return [
+        transaction for transaction in transactions if transaction["state"] == state
+    ]
 
 
 print(filter_by_state(datas))
@@ -26,7 +27,9 @@ def sort_by_date(transactions, reverse=True):
     """задающий порядок сортировки (по умолчанию — убывание)"""
     """Функция должна возвращать новый список, отсортированный по дате (date)."""
 
-    return sorted(transactions, key=lambda x: datetime.fromisoformat(x["date"]), reverse=reverse)
+    return sorted(
+        transactions, key=lambda x: datetime.fromisoformat(x["date"]), reverse=reverse
+    )
 
 
 print(datas)
