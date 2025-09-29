@@ -9,7 +9,7 @@ def log(filename: Optional[str] = None) -> Callable:
 
     def wrapper(func: Callable) -> Callable:
         @wraps(func)
-        def inner(*args: tuple, **kwargs: dict) -> Any:
+        def inner(*args, **kwargs) -> Any:
 
             try:
                 result = func(*args, **kwargs)
