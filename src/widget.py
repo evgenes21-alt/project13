@@ -36,13 +36,6 @@ def get_date(date_string: str) -> str:
     return formatted_date
 
 
-def get_date(date_string: str) -> str:
-    """Смена даты с формата ISO на 'ДД.ММ.ГГГГ'"""
-    date = parse(date_string)
-    formatted_date = date.strftime("%d.%m.%Y")
-    return formatted_date
-
-
 print(get_date("2024-03-11T02:26:18.671407"))
 
 print(mask_account_card("Maestro 1596837868705199"))
