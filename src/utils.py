@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from json import JSONDecodeError
 
 from src.external_api import convert_curr
 
@@ -15,6 +16,7 @@ utils_logger.addHandler(file_handler)
 utils_logger.setLevel(logging.DEBUG)
 
 
+
 def converted_transactions(json_path: str) -> list:
     """Функция преобразует входящий json объект в список словарей"""
 
@@ -22,13 +24,15 @@ def converted_transactions(json_path: str) -> list:
         utils_logger.info("Попытка прочитать файл json")
         with open(json_path, encoding="utf-8") as data:
             transaction_data = data.read()
-        utils_logger.info("Чтение и обработка файла успешна")
+            utils_logger.info("Чтение и обработка файла успешна")
         return json.loads(transaction_data)
-    except Exception:
-        utils_logger.error("Ошибка чтения файла, возвращен пустой список")
-        print("Что-то не так с файлом, или он пустой")
+    except FileNotFoundError:
+        utils_logger.error("Файл не найден")
+        print("Файл не найден")
         return []
-
+    except JSONDecodeError:
+        utils_logger.error("Произошла ошибка при декодировании файла json")
+        return []
 
 def transaction_amount(transaction: dict) -> str:
     """
@@ -56,3 +60,17 @@ def transaction_amount(transaction: dict) -> str:
             )
 
     return f'\nТранзакция ID: {transaction["id"]}, сумма: {round(float(result), 2)} {trans_curr}'
+
+
+print(transaction_amount({
+    "id": 214024827,
+    "state": "EXECUTED",
+    "date": "2018-12-20T16:43:26.929246",
+    "operationAmount": {
+      "amount": "10",
+      "currency": {
+        "name": "USD",
+        "code": "USD"
+      }
+    }
+}))
