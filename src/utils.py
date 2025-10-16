@@ -9,12 +9,11 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 logs_path = os.path.join(dir_path, "..", "logs", "utils.log")
 
 utils_logger = logging.getLogger("utils")
-file_handler = logging.FileHandler(logs_path, "w", encoding="UTF-8")
+file_handler = logging.FileHandler(logs_path, "a", encoding="UTF-8")
 file_formatter = logging.Formatter("%(asctime)s-%(name)s-%(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 utils_logger.addHandler(file_handler)
 utils_logger.setLevel(logging.DEBUG)
-
 
 
 def converted_transactions(json_path: str) -> list:
@@ -33,6 +32,7 @@ def converted_transactions(json_path: str) -> list:
     except JSONDecodeError:
         utils_logger.error("Произошла ошибка при декодировании файла json")
         return []
+
 
 def transaction_amount(transaction: dict) -> str:
     """
@@ -62,15 +62,16 @@ def transaction_amount(transaction: dict) -> str:
     return f'\nТранзакция ID: {transaction["id"]}, сумма: {round(float(result), 2)} {trans_curr}'
 
 
-print(transaction_amount({
-    "id": 214024827,
-    "state": "EXECUTED",
-    "date": "2018-12-20T16:43:26.929246",
-    "operationAmount": {
-      "amount": "10",
-      "currency": {
-        "name": "USD",
-        "code": "USD"
-      }
-    }
-}))
+print(
+    transaction_amount(
+        {
+            "id": 214024827,
+            "state": "EXECUTED",
+            "date": "2018-12-20T16:43:26.929246",
+            "operationAmount": {
+                "amount": "10",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+        }
+    )
+)

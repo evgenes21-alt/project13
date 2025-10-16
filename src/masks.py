@@ -1,6 +1,19 @@
 # 7000792289606361     # входной аргумент
 # 7000 79** **** 6361  # выход функции
 
+import logging
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+logs_path = os.path.join(dir_path, "..", "logs", "utils.log")
+
+masks_logger = logging.getLogger("masks")
+file_handler = logging.FileHandler(logs_path, "w", encoding="UTF-8")
+file_formatter = logging.Formatter("%(asctime)s-%(name)s-%(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+masks_logger.addHandler(file_handler)
+masks_logger.setLevel(logging.DEBUG)
+
 
 def get_mask_card_number(card_number: str) -> str:
     """Функция которая маскирует номер карты"""
