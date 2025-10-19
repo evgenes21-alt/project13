@@ -60,6 +60,3 @@ def transaction_amount(transaction: dict) -> int:
             )
 
     return round(float(result))
-
-
-

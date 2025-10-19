@@ -2,11 +2,11 @@ import logging
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-logs_path = os.path.join(dir_path, '..', 'logs', 'utils.log')
+logs_path = os.path.join(dir_path, "..", "logs", "utils.log")
 
 masks_logger = logging.getLogger("masks")
 file_handler = logging.FileHandler(logs_path, "w", encoding="UTF-8")
-file_formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s: %(message)s')
+file_formatter = logging.Formatter("%(asctime)s-%(name)s-%(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 masks_logger.addHandler(file_handler)
 masks_logger.setLevel(logging.DEBUG)
@@ -59,13 +59,12 @@ def get_mask_account(account_number: str) -> str:
         raise ValueError("Нестандартный номер счета, должно быть 20-значное число")
 
 
-
-#rint(get_mask_account("2024-03-11T02:26:18.671407"))
-#print(get_mask_card_number("Maestro 1596837868705199"))
-#print(get_mask_card_number("Счет 64686473678894779589"))
-#print(get_mask_card_number("MasterCard 7158300734726758"))
-#print(get_mask_card_number("35383033474447895560"))
+# rint(get_mask_account("2024-03-11T02:26:18.671407"))
+# print(get_mask_card_number("Maestro 1596837868705199"))
+# print(get_mask_card_number("Счет 64686473678894779589"))
+# print(get_mask_card_number("MasterCard 7158300734726758"))
+# print(get_mask_card_number("35383033474447895560"))
 print(get_mask_card_number("6831982476737658"))
 print(get_mask_card_number("8990922113665229"))
 print(get_mask_card_number("5999414228426353"))
-#print(get_mask_card_number("73654108430135874305"))
+# print(get_mask_card_number("73654108430135874305"))
