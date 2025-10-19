@@ -34,7 +34,7 @@ def converted_transactions(json_path: str) -> list:
         return []
 
 
-def transaction_amount(transaction: dict) -> str:
+def transaction_amount(transaction: dict) -> int:
     """
     Функция возвращает сумму транзакции в рублях.
     Если транзакция была в USD или EUR, происходит обращение к внешнему API
@@ -59,19 +59,7 @@ def transaction_amount(transaction: dict) -> str:
                 "Конвертация не удалась, сумма возвращена в исходной валюте"
             )
 
-    return f'\nТранзакция ID: {transaction["id"]}, сумма: {round(float(result), 2)} {trans_curr}'
+    return round(float(result))
 
 
-print(
-    transaction_amount(
-        {
-            "id": 214024827,
-            "state": "EXECUTED",
-            "date": "2018-12-20T16:43:26.929246",
-            "operationAmount": {
-                "amount": "10",
-                "currency": {"name": "USD", "code": "USD"},
-            },
-        }
-    )
-)
+

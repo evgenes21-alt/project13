@@ -1,49 +1,71 @@
-# 7000792289606361     # входной аргумент
-# 7000 79** **** 6361  # выход функции
-
 import logging
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-logs_path = os.path.join(dir_path, "..", "logs", "utils.log")
+logs_path = os.path.join(dir_path, '..', 'logs', 'utils.log')
 
 masks_logger = logging.getLogger("masks")
 file_handler = logging.FileHandler(logs_path, "w", encoding="UTF-8")
-file_formatter = logging.Formatter("%(asctime)s-%(name)s-%(levelname)s: %(message)s")
+file_formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 masks_logger.addHandler(file_handler)
 masks_logger.setLevel(logging.DEBUG)
 
 
 def get_mask_card_number(card_number: str) -> str:
-    """Функция которая маскирует номер карты"""
-    if card_number is None:
-        error_msg = "Номер карты не может быть None"
-        raise ValueError(error_msg)
+    """
+    Принимает на вход номер карты и возвращает ее маску
+    в формате XXXX XX** **** XXXX, где X — это цифра номера.
+    """
+    masks_logger.info(f"Принят номер карты {card_number} для маскирования")
+    numbers_list = list(card_number.strip())
+    if len(numbers_list) == 0:
+        masks_logger.error("Нулевая длина номера карты. Вызвано исключение")
+        raise ValueError("Нулевая длина номера карты")
+    elif len(numbers_list) == 16:
+        for index_ in range(6, 12):
+            numbers_list[index_] = "*"
+        masks_logger.info("Маскирование номера карты выполнено успешно")
+    else:
+        masks_logger.error("Нестандартный номер карты, должно быть 16-значное число")
+        raise ValueError("Нестандартный номер карты, должно быть 16-значное число")
 
-    if (len(card_number)) != 16 or not card_number.isdigit():
-        error_msg = "Номер карты должен состоять из 16 цифр"
-        raise ValueError(error_msg)
+    # проставляем пробелы каждые четыре разряда
+    index_ = 4
 
-    card_number = card_number[:6] + "*" * 6 + card_number[-4:]
-    card_number = (
-        card_number[:4]
-        + " "
-        + card_number[4:8]
-        + " "
-        + card_number[8:12]
-        + " "
-        + card_number[12:]
-    )
-    return card_number
+    while index_ < len(numbers_list):
+        numbers_list.insert(index_, " ")
+        index_ += 5
+    masked_card = "".join(numbers_list)
+    masks_logger.info(f"Карта {card_number} маскирована в виде {masked_card}")
+    return masked_card
 
 
-# 73654108430135874305  # входной аргумент
-#               **4305  # выход функции
+def get_mask_account(account_number: str) -> str:
+    """
+    Принимает на вход номер счета и возвращает его маску
+    в формате **XXXX, где X — это цифра номера.
+    """
+    masks_logger.info(f"Получен номер счета {account_number} для маскирования")
+    if len(account_number) == 0:
+        masks_logger.error("Нулевая длина номера счета")
+        raise ValueError("Нулевая длина номера счета")
+    elif len(account_number) == 20:
+        card_masked = "**" + account_number[-4:]
+        masks_logger.info(f"Счет {account_number} маскирован в виде {card_masked}")
+        return card_masked
+    else:
+        masks_logger.error("Нестандартный номер счета, вызвано исключение")
+        raise ValueError("Нестандартный номер счета, должно быть 20-значное число")
 
 
-def get_mask_account(account: str) -> str:
-    """Функция которая маскирует номер счёта"""
-    card_account = str(account)
-    card_account = "**" + card_account[-4:]
-    return card_account
+
+#rint(get_mask_account("2024-03-11T02:26:18.671407"))
+#print(get_mask_card_number("Maestro 1596837868705199"))
+#print(get_mask_card_number("Счет 64686473678894779589"))
+#print(get_mask_card_number("MasterCard 7158300734726758"))
+#print(get_mask_card_number("35383033474447895560"))
+print(get_mask_card_number("6831982476737658"))
+print(get_mask_card_number("8990922113665229"))
+print(get_mask_card_number("5999414228426353"))
+#print(get_mask_card_number("73654108430135874305"))
