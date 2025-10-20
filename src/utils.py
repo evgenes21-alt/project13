@@ -40,7 +40,7 @@ def transaction_amount(transaction: dict) -> int:
     Если транзакция была в USD или EUR, происходит обращение к внешнему API
     для получения текущего курса валют и конвертации суммы операции в рубли.
     """
-    print(f"\nОдна из случайных транзакций:\n {transaction}")
+
     trans_curr = transaction["operationAmount"]["currency"]["code"]
     trans_amount = transaction["operationAmount"]["amount"]
     result = trans_amount
@@ -59,4 +59,6 @@ def transaction_amount(transaction: dict) -> int:
                 "Конвертация не удалась, сумма возвращена в исходной валюте"
             )
 
-    return round(float(result))
+    return  result
+
+
