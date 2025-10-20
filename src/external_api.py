@@ -12,7 +12,6 @@ def convert_curr(from_: str, to_: str, trans_amount: str) -> float:
 
     API_KEY = os.getenv("API_KEY")
 
-
     response = requests.get(
         f"https://api.apilayer.com/exchangerates_data/convert?to={to_}&from={from_}&amount={trans_amount}&apikey={API_KEY}"
     )

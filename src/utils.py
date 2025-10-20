@@ -59,6 +59,4 @@ def transaction_amount(transaction: dict) -> int:
                 "Конвертация не удалась, сумма возвращена в исходной валюте"
             )
 
-    return  result
-
-
+    return result

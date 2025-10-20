@@ -35,5 +35,3 @@ def get_date(date_string: str) -> str:
     date = parse(date_string)
     formatted_date = date.strftime("%d.%m.%Y")
     return formatted_date
-
-
