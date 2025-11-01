@@ -29,12 +29,31 @@ def read_from_csv(file_path: str) -> list[dict]:
 
 
 def read_from_excel(file_path) -> list[dict]:
-    """Функция принимает пусть к файлу формата excel и возвращает список словарей."""
+    """Функция принимает путь к файлу формата excel и возвращает список словарей."""
     try:
         excel_data = pd.read_excel(file_path).to_dict(orient="records")
-
         operations_logger.info(f"Успешное чтение файла {file_path}")
         return excel_data
     except FileNotFoundError:
         operations_logger.error(f"Ошибка чтения файла {file_path}")
         return []
+result_csv = read_from_csv('path/to/your/file.csv')
+print(result_csv)
+
+result_excel = read_from_excel('path/to/your/file.xlsx')
+print(result_excel)
+
+if __name__ == "__main__":
+    # Тестируем чтение CSV
+    csv_file_path = "transactions.csv"  # Укажите реальный путь к вашему CSV файлу
+    csv_data = read_from_csv(csv_file_path)
+    print("\nДанные из CSV:")
+    for row in csv_data[:5]:  # Выводим первые 5 строк
+        print(row)
+
+    # Тестируем чтение Excel
+    excel_file_path = "transactions_excel.xlsx"  # Укажите реальный путь к вашему Excel файлу
+    excel_data = read_from_excel(excel_file_path)
+    print("\n\nДанные из Excel:")
+    for row in excel_data[:5]:  # Выводим первые 5 строк
+        print(row)
