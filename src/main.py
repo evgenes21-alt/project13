@@ -2,7 +2,8 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-
+from pandas import read_json, read_excel
+import csv
 import src.processing
 from src.operations import read_from_csv, read_from_excel
 from src.output_data import get_descriptions, print_formatted
@@ -18,6 +19,8 @@ load_dotenv(BASE_DIR + '\\.env')
 
 file_types = {"1": "JSON", "2": "CSV", "3": "XLSX"}
 transaction_status = ["EXECUTED", "CANCELED", "PENDING"]
+
+
 
 
 def main() -> None:
@@ -136,7 +139,10 @@ def main() -> None:
             else:
                 print("-" * 40)
                 print(f"Транзакции со статусом {transaction_status_choice} отсутствуют")
+                
+
 
 
 if __name__ == "__main__":
     main()
+    

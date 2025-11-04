@@ -57,3 +57,4 @@ def get_mask_account(account_number: str) -> str:
     else:
         masks_logger.error("Нестандартный номер счета, вызвано исключение")
         raise ValueError("Нестандартный номер счета, должно быть 20-значное число")
+

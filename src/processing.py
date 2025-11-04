@@ -8,17 +8,25 @@ datas = [
 ]
 
 
-def filter_by_state(transactions: list[dict], state: str = "EXECUTED") -> list[dict]:
-    """Функция, которая принимает список словарей и опционально значение для ключа (по умолчанию 'EXECUTED')."""
-    """Функция возвращает новый список словарей, содержащий только те словари,"""
-    """у которых ключ state соответствует указанному значению."""
+# def filter_by_state(transactions: list[dict], state: str = "EXECUTED") -> list[dict]:
+#     """Функция, которая принимает список словарей и опционально значение для ключа (по умолчанию 'EXECUTED')."""
+#     """Функция возвращает новый список словарей, содержащий только те словари,"""
+#     """у которых ключ state соответствует указанному значению."""
+#
+#     return [
+#         transaction for transaction in transactions if transaction["state"] == state
+#     ]
 
+def filter_by_state(transactions: list, state: str) -> list:
+    """Фильтрует транзакции по состоянию (поле 'state')."""
     return [
-        transaction for transaction in transactions if transaction["state"] == state
+        transaction for transaction in transactions
+        if transaction.get("state") == state  # get() вернёт None, если ключа нет
     ]
 
 
-print(filter_by_state(datas))
+
+#print(filter_by_state(datas))
 print(filter_by_state(datas, "CANCELED"))
 
 
